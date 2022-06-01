@@ -1,0 +1,39 @@
+server:
+  port: 9092
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              -GET
+              -POST
+              -PUT
+              -DELETE
+              -PATCH
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://aztec:aztec123@localhost:8010/eureka
+  instance:
+    prefer-ip-address: false
+    #    non-secure-port-enabled: false
+    #    secure-port-enabled: true
+    secure-port: ${server.port}
+    status-page-url: http://localhost:${server.port}/actuator/info
+    health-check-url: http://localhost:${server.port}/actuator/health
+    home-page-url: http://localhost:${server.port}
+    hostname: localhost
+
